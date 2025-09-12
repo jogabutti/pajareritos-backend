@@ -11,6 +11,11 @@ app.use(cors({
 }));
 
 export default async function handler(req, res) {
+  if (req.method === 'GET' && req.query.test === 'ping') {
+    res.status(200).json({ message: 'pong' });
+    return;
+  }
+
   const { query } = req.query;
   if (!query) {
     res.status(400).json({ error: 'Missing query parameter' });
