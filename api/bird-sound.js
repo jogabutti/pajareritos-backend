@@ -5,7 +5,7 @@ const app = express();
 
 // Configura CORS antes de las rutas
 app.use(cors({
-  origin: 'https://https://jogabutti.github.io/pajareritos/', // Reemplaza por el dominio de tu web publicada
+  origin: 'https://jogabutti.github.io/pajareritos/', 
   methods: ['GET', 'POST'],
   credentials: true
 }));
