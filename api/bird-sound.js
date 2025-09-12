@@ -16,6 +16,18 @@ export default async function handler(req, res) {
     return;
   }
 
+  // Configuración manual de CORS
+  res.setHeader('Access-Control-Allow-Origin', 'https://jogabutti.github.io'); // Cambia por el dominio de tu frontend
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Manejo de preflight OPTIONS
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
   const { query } = req.query;
   if (!query) {
     res.status(400).json({ error: 'Missing query parameter' });
