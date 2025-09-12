@@ -1,4 +1,14 @@
 const apiKey = '0379c214849f9af5ad391e5c049caf7179c6d81f';
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+// Configura CORS antes de las rutas
+app.use(cors({
+  origin: 'https://https://jogabutti.github.io/pajareritos/', // Reemplaza por el dominio de tu web publicada
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
 
 export default async function handler(req, res) {
   const { query } = req.query;
