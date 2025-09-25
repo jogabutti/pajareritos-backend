@@ -1,6 +1,7 @@
 import countryRegionData from 'country-region-data';
 
 export default function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const query = (req.query.q || '').toLowerCase();
   const regiones = [];
   countryRegionData.forEach(country => {
