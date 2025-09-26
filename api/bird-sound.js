@@ -15,8 +15,11 @@ app.use(cors({
 
 // Endpoint principal para sonidos de aves
 app.get('/api/bird-sound', async (req, res) => {
-  if (req.query.test === 'ping') {
-    res.status(200).json({ message: 'pong' });
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
     return;
   }
   const { query } = req.query;
@@ -26,7 +29,7 @@ app.get('/api/bird-sound', async (req, res) => {
   }
   try {
     const xcQuery = `sp:"${query}" grp:birds`;
-    const url = `https://xeno-canto.org/api/3/recordings?query=${encodeURIComponent(xcQuery)}&key=${apiKey}`;
+    const url = `https://xeno-canto.org/api/3/recordings?query=${encodeURIComponent(xcQuery)}&key=0379c214849f9af5ad391e5c049caf7179c6d81f`;
     const fetch = (await import('node-fetch')).default;
     const response = await fetch(url, {
       headers: {
