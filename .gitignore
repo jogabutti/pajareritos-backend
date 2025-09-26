@@ -39,3 +39,4 @@ yarn-error.log*
 
 # distribution folder
 /dist
+.vercel
