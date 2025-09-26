@@ -1,8 +1,4 @@
-import express from 'express';
-import countryRegionData from 'country-region-data'; // Importa directamente
-
-const app = express();
-app.use(express.json());
+import countryRegionData from 'country-region-data';
 
 // Convierte la estructura a un array plano de regiones
 const regiones = [];
@@ -16,17 +12,18 @@ countryRegionData.forEach(country => {
   });
 });
 
-// Endpoint para autocompletar regiones
-app.get('/localidad/find', (req, res) => {
+export default function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
   const query = (req.query.q || '').toLowerCase();
   if (!query || query.length < 2) return res.json([]);
   const coincidencias = regiones.filter(r =>
     r.nombre.toLowerCase().includes(query)
   );
   res.json(coincidencias.slice(0, 20)); // máximo 20 resultados
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+}
